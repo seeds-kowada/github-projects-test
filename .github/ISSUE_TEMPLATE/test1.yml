@@ -7,23 +7,32 @@ body:
       value: |
         下記に詳細を記載していく
   - type: textarea
+    id: relate-issues
+    attributes:
+      label: "関連タスク"
+      description: "関連するBacklogやissueを記載"
+      placeholder: |
+        - Backlogタスク
+        - issue番号
+  - type: textarea
     id: task-lists
     attributes:
       label: "作業内容"
-      description: "作業内容を記載してください"
+      description: "作業内容を記載"
       placeholder: |
-        - [ ] 〇〇の修正 
+        - [ ] 〇〇の修正
         - [ ] XXXの修正
     validations:
       required: true
-  - type: checkboxes
+  - type: dropdown
     id: target_merge
     attributes:
       label: "マージ先"
-      description: What version of our software are you running?
+      description: "どこに反映するか"
+      multiple: true
       options:
-        - label: develop
-        - label: master
+        - develop
+        - master
     validations:
       required: true
   - type: dropdown
@@ -41,7 +50,7 @@ body:
     id: reference
     attributes:
       label: "参考資料"
-      description: "参考資料"
+      description: "詳細設計書やAPI仕様書などを記載する"
       value: |
         - [詳細設計書](https://docs.google.com/spreadsheets/d/1t2xVWyUr_y6Z-fVJGMUjGYLrdNXgWSEgwWVzYSmAusc/edit#gid=202444758)
         - [API仕様書](https://docs.google.com/spreadsheets/d/1JSEEHsOEMjpelx7u-nnOu9w_SQeiGJDFeZXdHzgnR44/edit#gid=1285434987)
