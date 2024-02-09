@@ -20,16 +20,18 @@ body:
       label: "マージ先"
       description: What version of our software are you running?
       options:
-        - label: bbb
-        - label: aaa
+        - label: develop
+        - label: master
     validations:
       required: true
   - type: dropdown
     id: priority
     attributes:
-      label: What browsers are you seeing the problem on?
-      multiple: true
+      label: このタスクの優先度は？
       options:
-        - "優先度 低"
-        - "優先度 中"
-        - "優先度 高"
+        - "Low"
+        - "Middle"
+        - "High"
+        - "Hotfix"
+      validations:
+        required: true
