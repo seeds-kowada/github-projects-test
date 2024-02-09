@@ -12,8 +12,8 @@ body:
       label: "作業内容"
       description: "作業内容を記載してください"
       placeholder: |
-          -[] 〇〇の修正
-          -[] XXXの修正
+        - [ ] 〇〇の修正 
+        - [ ] XXXの修正
     validations:
       required: true
   - type: checkboxes
@@ -42,7 +42,7 @@ body:
     attributes:
       label: "参考資料"
       description: "参考資料"
-      placeholder: |
+      value: |
         - [詳細設計書](https://docs.google.com/spreadsheets/d/1t2xVWyUr_y6Z-fVJGMUjGYLrdNXgWSEgwWVzYSmAusc/edit#gid=202444758)
         - [API仕様書](https://docs.google.com/spreadsheets/d/1JSEEHsOEMjpelx7u-nnOu9w_SQeiGJDFeZXdHzgnR44/edit#gid=1285434987)
         - [テーブル定義書](https://docs.google.com/spreadsheets/d/1ENnFUOWqg0beAJjn75fhiWx56wp7eEzXpetHqyL1TZk/edit#gid=0)
