@@ -33,5 +33,5 @@ body:
         - "Middle"
         - "High"
         - "Hotfix"
-      validations:
-        required: true
+    validations:
+      required: true
