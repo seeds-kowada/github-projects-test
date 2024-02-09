@@ -1,6 +1,5 @@
 name: フロント開発issue
 description: フロント開発がメインのissueを記載します。
-title: ""
 labels: ["frontend"]
 body:
   - type: markdown
