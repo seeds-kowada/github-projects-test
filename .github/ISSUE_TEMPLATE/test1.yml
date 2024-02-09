@@ -26,8 +26,8 @@ body:
     attributes:
       label: "作業内容"
       description: "作業内容を細かに記載してください"
-      value: |
-        + [ ] 
+      validations:
+        required: true
   - type: textarea
     id: howto
     attributes:
