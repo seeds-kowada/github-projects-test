@@ -5,13 +5,15 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this bug report!
+        下記に詳細を記載していく
   - type: textarea
-    id: what-happened
+    id: task-lists
     attributes:
-      label: "概要"
-      description: "概要を記載してください"
-      placeholder: "何か"
+      label: "作業内容"
+      description: "作業内容を記載してください"
+      placeholder: |
+          -[] 〇〇の修正
+          -[] XXXの修正
     validations:
       required: true
   - type: checkboxes
