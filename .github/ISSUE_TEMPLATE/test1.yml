@@ -15,22 +15,24 @@ body:
         - Backlogタスク
         - issue番号
   - type: textarea
-    id: task-lists
+    id: feature
     attributes:
       label: "概要"
-      description: "概要・作業内容を記載"
-      value: |
-        ### 概要
-        軽く概要を記載する。
-        ### 問題点
-        問題点を記載 (〇〇のAPIが通らないなど)
-        ### 再現手順 >
-        あれば
-        ### 作業内容
-        - [ ] 作業内容A
-        - [ ] 作業内容B
+      description: "取り組むissueの背景、バグの詳細など記載してください"
     validations:
       required: true
+  - type: textarea
+    id: task-lists
+    attributes:
+      label: "作業内容"
+      description: "作業内容を細かに記載してください"
+      value: |
+        + [ ] 
+  - type: textarea
+    id: howto
+    attributes:
+      label: "再現手順"
+      description: "あれば記載してください"
   - type: dropdown
     id: target_merge
     attributes:
