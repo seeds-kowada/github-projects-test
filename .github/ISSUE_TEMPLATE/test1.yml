@@ -20,8 +20,8 @@ body:
       label: "マージ先"
       description: What version of our software are you running?
       options:
-        - develop
-        - main
+        - label: bbb
+        - label: aaa
     validations:
       required: true
   - type: dropdown
