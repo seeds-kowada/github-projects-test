@@ -1,0 +1,17 @@
+sequenceDiagram
+    autonumber
+    actor customer as 顧客
+    participant robocheck_fe as ロボチェック<br>フロントエンド
+    participant robocheck_be as ロボチェック<br>バックエンド
+    participant with_secure as ウィルスチェック
+    participant robocheck_db as ロボDB
+
+    %% 進捗確認
+    robocheck_fe ->>+ robocheck_be: アップロード進捗の確認
+    robocheck_be ->>+ robocheck_db: 依頼番号の発行状況を確認
+    robocheck_db -->>- robocheck_be: 結果を返却
+    robocheck_be -->>- robocheck_fe: アップロード進捗を返却
+    break 全ページのアップロードが完了していない
+        robocheck_fe ->> customer: 入稿ファイルアップロード画面を表示
+    end
+    robocheck_fe ->> customer: 事前プレビュー画面の表示

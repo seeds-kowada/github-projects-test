@@ -1,0 +1,16 @@
+sequenceDiagram
+    autonumber
+    actor customer as 顧客
+    participant robocheck_fe as ロボチェック<br>フロントエンド
+    participant robocheck_be as ロボチェック<br>バックエンド
+    participant robocheck_db as ロボDB
+
+%% 注文情報の取得
+    opt 注文情報のキャッシュがない場合
+        robocheck_fe ->>+ robocheck_be: 注文情報の取得
+        robocheck_be ->>+ robocheck_db: 注文情報の取得
+        robocheck_db -->>- robocheck_be: 結果を返却
+        robocheck_be -->>- robocheck_fe: レスポンスを返却
+        robocheck_fe ->> robocheck_fe: キャッシュ
+    end
+

@@ -1,0 +1,28 @@
+sequenceDiagram
+    autonumber
+    actor customer as 顧客
+    participant robocheck_fe as ロボチェック<br>フロントエンド
+    participant robocheck_be as ロボチェック<br>バックエンド
+    participant with_secure as ウィルスチェック
+    participant robocheck_db as ロボDB
+    participant nyuko_file_efs as 入稿ファイル<br>EFS
+    participant nyuko_file_s3 as 入稿ファイル<br>S3
+    participant prefright_s3 as プリフライト<br>S3
+    participant asura_log_s3 as Asuraログ<br>S3
+    participant asura_link as Asura/AsuraLink
+
+%% サイズ修正
+    customer ->>+ robocheck_fe: サイズ変更を指示
+    robocheck_fe ->>+ robocheck_be: 変更方法を送信
+    robocheck_be ->> robocheck_be: 拡大縮小率の計算
+    robocheck_be ->>+ asura_link: ExecPrefright 3回目 Cルート
+    asura_link -->>- robocheck_be: レスポンスを返却
+    asura_link --)+ asura_log_s3: ログ出力
+    asura_log_s3 --)- asura_link: OK
+    loop ログが取得できるまで
+        robocheck_be ->>+ asura_log_s3: ログを取得
+        asura_log_s3 -->>- robocheck_be: XHTMLを返却
+    end
+    robocheck_be ->>+ robocheck_db: 依頼番号を保存
+    robocheck_db -->>- robocheck_be: OK
+    robocheck_be -->>- robocheck_fe: レスポンスを返却

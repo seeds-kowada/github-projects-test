@@ -1,0 +1,15 @@
+sequenceDiagram
+    autonumber
+    actor customer as 顧客
+    participant renkei_site as 連携元ECサイト
+    participant robocheck_fe as ロボチェックフロントエンド
+    participant robocheck_be as ロボチェックバックエンド
+    participant robocheck_db as ロボDB
+
+    customer ->>+ renkei_site: ロボチェック開始
+    renkei_site ->>+ robocheck_fe: 注文情報を取得 (クエリパラメータ)
+    robocheck_fe ->>+ robocheck_be: 注文情報を転送
+    robocheck_be ->>+ robocheck_db: 注文情報を保存
+    robocheck_db ->>- robocheck_be: 結果を返却
+    robocheck_be ->>- robocheck_fe: 結果を返却
+    robocheck_fe ->>- customer: 入力ファイルアップロード画面を表示

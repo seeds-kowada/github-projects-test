@@ -1,0 +1,42 @@
+sequenceDiagram
+    autonumber
+    actor customer as 顧客
+    participant robocheck_fe as ロボチェック<br>フロントエンド
+    participant robocheck_be as ロボチェック<br>バックエンド
+    participant with_secure as ウィルスチェック
+    participant robocheck_db as ロボDB
+    participant nyuko_file_efs as 入稿ファイル<br>EFS
+    participant nyuko_file_s3 as 入稿ファイル<br>S3
+    participant prefright_s3 as プリフライト<br>S3
+    participant asura_log_s3 as Asuraログ<br>S3
+    participant asura_link as Asura/AsuraLink
+
+    %% ページ指定
+    robocheck_fe ->>+ robocheck_be: 入稿ファイルページの取得
+    robocheck_be ->>+ robocheck_db: 依頼番号の取得
+    robocheck_db -->>- robocheck_be: 結果を返却
+    robocheck_be ->>+ prefright_s3: ページ画像の取得
+    prefright_s3 -->>- robocheck_be: 電子署名付きURLを返却
+    robocheck_be -->>- robocheck_fe: レスポンスを返却
+    robocheck_fe ->>+ customer: ページ指定画面を表示
+    customer ->>+ robocheck_fe: ページを指定
+    loop 先頭から自動配置ので複数ページ処理する場合
+        robocheck_fe ->>+ robocheck_be: ページ指定情報を送信
+        robocheck_be ->>+ robocheck_db: 依頼番号を取得
+        robocheck_db -->>- robocheck_be: 結果を返却
+        robocheck_be ->>+ asura_log_s3: 事前チェック時のログを取得
+        asura_log_s3 -->>- robocheck_be: XHTMLを返却
+        robocheck_be ->> robocheck_be: ログを解析
+        robocheck_be ->> robocheck_be: エラーを抽出
+        robocheck_be ->> robocheck_be: PDF注釈チェック
+        robocheck_be ->> robocheck_be: フォントチェック
+        break エラーありの場合
+            robocheck_be -->>- robocheck_fe: レスポンスを返却
+            robocheck_fe -->>- customer: 入稿ファイルエラー内容の表示
+        end
+        robocheck_be -->> robocheck_fe: レスポンスを返却
+        Note over robocheck_fe: サイズ判定へ移行する
+    end
+
+
+
